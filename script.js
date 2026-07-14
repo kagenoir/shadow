@@ -185,14 +185,20 @@ mouseY =
 
 /* Animation */
 
+const isMobileScreen = window.innerWidth <= 640;
+
+const rotSpeedX = isMobileScreen ? 0.0015 : 0.001;
+const rotSpeedY = isMobileScreen ? 0.003 : 0.002;
+const particleSpeed = isMobileScreen ? 0.0006 : 0.0004;
+
 function animate(){
 
 if(!animationRunning) return;
 
 requestAnimationFrame(animate);
 
-object.rotation.x += 0.001;
-object.rotation.y += 0.002;
+object.rotation.x += rotSpeedX;
+object.rotation.y += rotSpeedY;
 
 object.position.x +=
 (mouseX-object.position.x)*0.02;
@@ -200,7 +206,7 @@ object.position.x +=
 object.position.y +=
 (-mouseY-object.position.y)*0.02;
 
-particles.rotation.y +=0.0004;
+particles.rotation.y +=particleSpeed;
 
 renderer.render(scene,camera);
 
@@ -804,7 +810,31 @@ animate();
 
 });
 
-/* ================= BATCH 12 - VIDEO VISIBILITY ================= */
+/* ================= HOVER-TO-PLAY VIDEO ================= */
+
+document.querySelectorAll(".phone").forEach(phone=>{
+
+const video = phone.querySelector("video");
+
+if(!video) return;
+
+phone.addEventListener("mouseenter",()=>{
+
+video.currentTime = 0;
+
+video.play();
+
+});
+
+phone.addEventListener("mouseleave",()=>{
+
+video.pause();
+
+});
+
+});
+
+/* Pause off-screen videos so they don't keep running in the background */
 
 const portfolioVideos = document.querySelectorAll(".phone video");
 
@@ -812,11 +842,7 @@ const videoObserver = new IntersectionObserver((entries)=>{
 
 entries.forEach(entry=>{
 
-if(entry.isIntersecting){
-
-entry.target.play();
-
-}else{
+if(!entry.isIntersecting){
 
 entry.target.pause();
 

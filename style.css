@@ -549,9 +549,11 @@ transition:.2s;
 
 overflow:hidden;
 
-padding:40px 0;
+padding:22px 0;
 
 background:#0b0b0b;
+
+min-height:0;
 
 }
 
@@ -569,7 +571,7 @@ overflow:hidden;
 
 display:inline-block;
 
-font-size:60px;
+font-size:42px;
 
 font-weight:900;
 

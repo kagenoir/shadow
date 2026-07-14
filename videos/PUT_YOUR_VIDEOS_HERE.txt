@@ -1,0 +1,14 @@
+Put your .mp4 video files in this folder.
+
+Example: reel1.mp4, reel2.mp4, documentary1.mp4
+
+Then open index.html in a text editor, find the "projects" list near the bottom,
+and for each project change:
+
+    videoSrc: ""
+
+to:
+
+    videoSrc: "videos/reel1.mp4"
+
+(using the actual filename you put in this folder)
